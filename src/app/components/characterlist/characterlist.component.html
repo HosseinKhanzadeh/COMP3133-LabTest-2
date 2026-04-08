@@ -1,5 +1,5 @@
 <section class="page">
-  <h1 class="mat-headline-5">Characters</h1>
+  <h1 class="mat-headline-5 page-title">Characters</h1>
 
   <app-characterfilter (houseChange)="onHouseFilterChange($event)" />
 
@@ -7,7 +7,7 @@
     @if (state.loading) {
       <div class="state-block">
         <mat-progress-spinner mode="indeterminate" diameter="48" />
-        <p class="mat-body-2">Loading characters…</p>
+        <p class="mat-body-2 state-caption">Loading characters…</p>
       </div>
     } @else if (state.error) {
       <p class="mat-body-1 error-text">{{ state.error }}</p>
@@ -16,20 +16,22 @@
     } @else {
       <div class="card-grid">
         @for (c of state.characters; track c.id) {
-          <mat-card class="char-card" appearance="outlined">
+          <mat-card class="char-card hp-gloss-card" appearance="outlined">
             <div class="thumb-wrap">
               <img
                 class="thumb"
                 [src]="imageUrl(c)"
                 [alt]="c.name"
+                width="280"
+                height="220"
                 (error)="onImageError($event)"
               />
             </div>
-            <mat-card-header>
+            <mat-card-header class="card-header-block">
               <mat-card-title class="card-title">{{ c.name }}</mat-card-title>
-              <mat-card-subtitle>{{ houseLabel(c) }}</mat-card-subtitle>
+              <mat-card-subtitle class="card-subtitle">{{ houseLabel(c) }}</mat-card-subtitle>
             </mat-card-header>
-            <mat-card-actions align="end">
+            <mat-card-actions class="card-actions" align="end">
               <a mat-flat-button color="primary" [routerLink]="['/character', c.id]">
                 View Details
               </a>

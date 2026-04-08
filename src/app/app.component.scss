@@ -4,13 +4,17 @@
 
 .brand {
   font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 .main-content {
-  padding: 1rem;
+  padding: 1.25rem 1rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
+  min-height: calc(100vh - 64px);
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 a.toolbar-active {

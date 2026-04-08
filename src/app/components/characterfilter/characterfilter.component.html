@@ -1,4 +1,4 @@
-<mat-card appearance="outlined" class="filter-card">
+<mat-card appearance="outlined" class="filter-card hp-gloss-card">
   <mat-card-header>
     <mat-card-title>Filter by house</mat-card-title>
     <mat-card-subtitle>Choose a house or view everyone.</mat-card-subtitle>
@@ -6,7 +6,11 @@
   <mat-card-content>
     <mat-form-field appearance="outline" class="house-field">
       <mat-label>House</mat-label>
-      <mat-select [value]="selectedHouse" (selectionChange)="onHouseSelected($event)">
+      <mat-select
+        panelClass="hp-select-panel"
+        [value]="selectedHouse"
+        (selectionChange)="onHouseSelected($event)"
+      >
         <mat-option [value]="null">All characters</mat-option>
         @for (house of houses; track house) {
           <mat-option [value]="house">{{ house }}</mat-option>

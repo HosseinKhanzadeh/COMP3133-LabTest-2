@@ -7,7 +7,7 @@
     @if (state.loading) {
       <div class="state-block">
         <mat-progress-spinner mode="indeterminate" diameter="48" />
-        <p class="mat-body-2">Loading character…</p>
+        <p class="mat-body-2 state-caption">Loading character…</p>
       </div>
     } @else if (state.error === 'missing-id') {
       <p class="mat-body-1 message">No character id in the URL.</p>
@@ -17,19 +17,21 @@
       <p class="mat-body-1 message">Could not load character. Try again later.</p>
     } @else {
       @if (state.character; as c) {
-        <mat-card appearance="outlined" class="detail-card">
+        <mat-card appearance="outlined" class="detail-card hp-gloss-card">
           <div class="detail-layout">
             <div class="photo-wrap">
               <img
                 class="photo"
                 [src]="imageSrc(c)"
                 [alt]="textField(c.name)"
+                width="280"
+                height="360"
                 (error)="onImageError($event)"
               />
             </div>
             <mat-card-content class="detail-body">
               <h1 class="mat-headline-5 name">{{ textField(c.name) }}</h1>
-              <mat-divider />
+              <mat-divider class="name-divider" />
               <dl class="detail-list">
                 <dt>Species</dt>
                 <dd>{{ textField(c.species) }}</dd>
