@@ -1,15 +1,42 @@
 <section class="page">
   <h1 class="mat-headline-5">Characters</h1>
 
-  <app-characterfilter />
+  <app-characterfilter (houseChange)="onHouseFilterChange($event)" />
 
-  @if (characters$ | async; as characters) {
-    <p class="status mat-body-1">
-      Loaded {{ characters.length }} characters from the Harry Potter API.
-    </p>
-  } @else {
-    <p class="status mat-body-1">Loading characters…</p>
+  @if (listState$ | async; as state) {
+    @if (state.loading) {
+      <div class="state-block">
+        <mat-progress-spinner mode="indeterminate" diameter="48" />
+        <p class="mat-body-2">Loading characters…</p>
+      </div>
+    } @else if (state.error) {
+      <p class="mat-body-1 error-text">{{ state.error }}</p>
+    } @else if (state.characters.length === 0) {
+      <p class="mat-body-1 empty-text">No characters found for this filter.</p>
+    } @else {
+      <div class="card-grid">
+        @for (c of state.characters; track c.id) {
+          <mat-card class="char-card" appearance="outlined">
+            <div class="thumb-wrap">
+              <img
+                class="thumb"
+                [src]="imageUrl(c)"
+                [alt]="c.name"
+                (error)="onImageError($event)"
+              />
+            </div>
+            <mat-card-header>
+              <mat-card-title class="card-title">{{ c.name }}</mat-card-title>
+              <mat-card-subtitle>{{ houseLabel(c) }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions align="end">
+              <a mat-flat-button color="primary" [routerLink]="['/character', c.id]">
+                View Details
+              </a>
+            </mat-card-actions>
+          </mat-card>
+        }
+      </div>
+    }
   }
-
-  <p class="hint mat-body-2">The character grid and actions will be added in a later step.</p>
 </section>

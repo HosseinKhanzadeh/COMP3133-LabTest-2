@@ -1,9 +1,17 @@
 <mat-card appearance="outlined" class="filter-card">
   <mat-card-header>
-    <mat-card-title>Filters</mat-card-title>
-    <mat-card-subtitle>House and search controls will go here.</mat-card-subtitle>
+    <mat-card-title>Filter by house</mat-card-title>
+    <mat-card-subtitle>Choose a house or view everyone.</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p class="mat-body-2">Placeholder for the next lab step.</p>
+    <mat-form-field appearance="outline" class="house-field">
+      <mat-label>House</mat-label>
+      <mat-select [value]="selectedHouse" (selectionChange)="onHouseSelected($event)">
+        <mat-option [value]="null">All characters</mat-option>
+        @for (house of houses; track house) {
+          <mat-option [value]="house">{{ house }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
   </mat-card-content>
 </mat-card>

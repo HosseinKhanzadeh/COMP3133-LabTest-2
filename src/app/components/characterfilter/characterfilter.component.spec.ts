@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 import { CharacterfilterComponent } from './characterfilter.component';
 
@@ -8,9 +9,9 @@ describe('CharacterfilterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CharacterfilterComponent]
-    })
-    .compileComponents();
+      imports: [CharacterfilterComponent],
+      providers: [provideNoopAnimations()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CharacterfilterComponent);
     component = fixture.componentInstance;
