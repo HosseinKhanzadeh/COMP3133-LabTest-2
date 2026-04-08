@@ -1,0 +1,18 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.brand {
+  font-weight: 500;
+}
+
+.main-content {
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+a.toolbar-active {
+  background-color: rgba(255, 255, 255, 0.12);
+}

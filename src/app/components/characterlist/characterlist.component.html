@@ -1,0 +1,15 @@
+<section class="page">
+  <h1 class="mat-headline-5">Characters</h1>
+
+  <app-characterfilter />
+
+  @if (characters$ | async; as characters) {
+    <p class="status mat-body-1">
+      Loaded {{ characters.length }} characters from the Harry Potter API.
+    </p>
+  } @else {
+    <p class="status mat-body-1">Loading characters…</p>
+  }
+
+  <p class="hint mat-body-2">The character grid and actions will be added in a later step.</p>
+</section>
