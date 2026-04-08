@@ -1,9 +1,57 @@
 <section class="page">
-  <h1 class="mat-headline-5">Character details</h1>
-  @if (characterId) {
-    <p class="mat-body-1">Character id: <code>{{ characterId }}</code></p>
-  } @else {
-    <p class="mat-body-1">No id in the route.</p>
+  <nav class="toolbar-row">
+    <a mat-stroked-button color="primary" routerLink="/">← Back to characters</a>
+  </nav>
+
+  @if (detailState$ | async; as state) {
+    @if (state.loading) {
+      <div class="state-block">
+        <mat-progress-spinner mode="indeterminate" diameter="48" />
+        <p class="mat-body-2">Loading character…</p>
+      </div>
+    } @else if (state.error === 'missing-id') {
+      <p class="mat-body-1 message">No character id in the URL.</p>
+    } @else if (state.error === 'not-found') {
+      <p class="mat-body-1 message">Character not found.</p>
+    } @else if (state.error === 'http') {
+      <p class="mat-body-1 message">Could not load character. Try again later.</p>
+    } @else {
+      @if (state.character; as c) {
+        <mat-card appearance="outlined" class="detail-card">
+          <div class="detail-layout">
+            <div class="photo-wrap">
+              <img
+                class="photo"
+                [src]="imageSrc(c)"
+                [alt]="textField(c.name)"
+                (error)="onImageError($event)"
+              />
+            </div>
+            <mat-card-content class="detail-body">
+              <h1 class="mat-headline-5 name">{{ textField(c.name) }}</h1>
+              <mat-divider />
+              <dl class="detail-list">
+                <dt>Species</dt>
+                <dd>{{ textField(c.species) }}</dd>
+                <dt>House</dt>
+                <dd>{{ houseLabel(c) }}</dd>
+                <dt>Wizard</dt>
+                <dd>{{ formatWizard(c) }}</dd>
+                <dt>Ancestry</dt>
+                <dd>{{ textField(c.ancestry) }}</dd>
+                <dt>Wand — wood</dt>
+                <dd>{{ wandWood(c) }}</dd>
+                <dt>Wand — core</dt>
+                <dd>{{ wandCore(c) }}</dd>
+                <dt>Wand — length</dt>
+                <dd>{{ wandLength(c) }}</dd>
+                <dt>Actor</dt>
+                <dd>{{ textField(c.actor) }}</dd>
+              </dl>
+            </mat-card-content>
+          </div>
+        </mat-card>
+      }
+    }
   }
-  <p class="hint mat-body-2">Full profile and image will be added in a later step.</p>
 </section>

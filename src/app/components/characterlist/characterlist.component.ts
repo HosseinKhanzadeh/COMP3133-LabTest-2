@@ -40,8 +40,7 @@ export class CharacterlistComponent {
   private readonly characterService = inject(CharacterService);
   private readonly houseFilter$ = new BehaviorSubject<string | null>(null);
 
-  readonly fallbackImage =
-    'https://placehold.co/280x360/263238/eceff1?text=No+image';
+  readonly fallbackImage = '/character-placeholder.svg';
 
   readonly listState$: Observable<ListState> = this.houseFilter$.pipe(
     switchMap((house) => {
@@ -85,7 +84,7 @@ export class CharacterlistComponent {
 
   onImageError(event: Event): void {
     const img = event.target as HTMLImageElement;
-    if (img.src !== this.fallbackImage) {
+    if (!img.src.includes('character-placeholder.svg')) {
       img.src = this.fallbackImage;
     }
   }
